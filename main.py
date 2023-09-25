@@ -1,6 +1,7 @@
 import random
 from misskey import Misskey
 import os
+import time
 
 # Misskey
 misskey_address = os.environ.get("MISSKEY_SERVER_ADDRESS")
@@ -16,4 +17,10 @@ for i in range (max):
     post_text = post_text + random.choice(alphabet_list)
 
 print(post_text)
-api.notes_create(text=post_text)
+while True:
+    try:
+        api.notes_create(text=post_text)
+    except:
+        time.sleep(300)
+    else:
+        break
