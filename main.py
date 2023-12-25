@@ -1,5 +1,6 @@
 import random
 from misskey import Misskey
+from atproto import Client, models
 import os
 import time
 
@@ -19,6 +20,17 @@ while True:
         api = Misskey(misskey_address)
         api.token = misskey_token
         api.notes_create(text=post_text)
+    except:
+        time.sleep(300)
+    else:
+        break
+
+while True:
+    try:
+        # Bluesky
+        bluesky = Client()
+        bluesky.login(str(os.environ.get("BLUESKY_MAIL_ADDRESS")),str(os.environ.get("BLUESKY_PASSWORD")))
+        bluesky.send_post(post_text)
     except:
         time.sleep(300)
     else:
